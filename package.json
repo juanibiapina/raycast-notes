@@ -13,12 +13,21 @@
     "Productivity"
   ],
   "license": "MIT",
+  "preferences": [
+    {
+      "name": "vaultPath",
+      "title": "Obsidian Vault Path",
+      "description": "Path to your Obsidian vault",
+      "type": "directory",
+      "required": true
+    }
+  ],
   "commands": [
     {
       "name": "track-time",
       "title": "Track Time",
-      "description": "",
-      "mode": "no-view"
+      "description": "Log a timestamped entry to today's daily note",
+      "mode": "view"
     }
   ],
   "dependencies": {

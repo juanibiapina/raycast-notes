@@ -27,13 +27,29 @@
       "name": "track-time",
       "title": "Track Time",
       "description": "Log a timestamped entry to today's daily note",
-      "mode": "view"
+      "mode": "no-view",
+      "arguments": [
+        {
+          "name": "text",
+          "placeholder": "What did you work on?",
+          "type": "text",
+          "required": true
+        }
+      ]
     },
     {
       "name": "log",
       "title": "Log",
       "description": "Add a simple entry to today's daily note",
-      "mode": "view"
+      "mode": "no-view",
+      "arguments": [
+        {
+          "name": "text",
+          "placeholder": "Log entry",
+          "type": "text",
+          "required": true
+        }
+      ]
     }
   ],
   "dependencies": {

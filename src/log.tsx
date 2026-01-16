@@ -1,56 +1,40 @@
-import { List, ActionPanel, Action, showToast, Toast, closeMainWindow, popToRoot } from "@raycast/api";
-import { useState } from "react";
+import { showToast, Toast, closeMainWindow, popToRoot } from "@raycast/api";
 import { appendToSection } from "./daily-note";
 
-export default function Command() {
-  const [searchText, setSearchText] = useState("");
+interface Arguments {
+  text: string;
+}
 
-  async function handleSubmit() {
-    const entryText = searchText.trim();
+export default async function Command(props: { arguments: Arguments }) {
+  const entryText = props.arguments.text.trim();
 
-    if (!entryText) {
-      await showToast({
-        style: Toast.Style.Failure,
-        title: "Entry cannot be empty",
-      });
-      return;
-    }
-
-    try {
-      const entry = appendToSection(entryText, {
-        sectionName: "Log",
-        formatEntry: (text) => `- ${text}`,
-      });
-
-      await showToast({
-        style: Toast.Style.Success,
-        title: "Logged",
-        message: entry,
-      });
-
-      await popToRoot();
-      await closeMainWindow();
-    } catch (error) {
-      await showToast({
-        style: Toast.Style.Failure,
-        title: "Failed to log entry",
-        message: error instanceof Error ? error.message : "Unknown error",
-      });
-    }
+  if (!entryText) {
+    await showToast({
+      style: Toast.Style.Failure,
+      title: "Entry cannot be empty",
+    });
+    return;
   }
 
-  return (
-    <List searchBarPlaceholder="Log entry" onSearchTextChange={setSearchText} filtering={false}>
-      {searchText.trim() && (
-        <List.Item
-          title={searchText}
-          actions={
-            <ActionPanel>
-              <Action title="Log Entry" onAction={handleSubmit} />
-            </ActionPanel>
-          }
-        />
-      )}
-    </List>
-  );
+  try {
+    const entry = appendToSection(entryText, {
+      sectionName: "Log",
+      formatEntry: (text) => `- ${text}`,
+    });
+
+    await showToast({
+      style: Toast.Style.Success,
+      title: "Logged",
+      message: entry,
+    });
+
+    await popToRoot();
+    await closeMainWindow();
+  } catch (error) {
+    await showToast({
+      style: Toast.Style.Failure,
+      title: "Failed to log entry",
+      message: error instanceof Error ? error.message : "Unknown error",
+    });
+  }
 }

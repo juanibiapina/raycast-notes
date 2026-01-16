@@ -1,6 +1,6 @@
 import { List, ActionPanel, Action, showToast, Toast, closeMainWindow } from "@raycast/api";
 import { useState } from "react";
-import { appendToSection, getTimestamp } from "./daily-note";
+import { appendToSection } from "./daily-note";
 
 export default function Command() {
   const [searchText, setSearchText] = useState("");
@@ -18,8 +18,8 @@ export default function Command() {
 
     try {
       const entry = appendToSection(entryText, {
-        sectionName: "Tracking",
-        formatEntry: (text) => `- ${getTimestamp()}: ${text}`,
+        sectionName: "Log",
+        formatEntry: (text) => `- ${text}`,
       });
 
       await showToast({
@@ -39,11 +39,10 @@ export default function Command() {
   }
 
   return (
-    <List searchBarPlaceholder="What did you work on?" onSearchTextChange={setSearchText} filtering={false}>
+    <List searchBarPlaceholder="Log entry" onSearchTextChange={setSearchText} filtering={false}>
       {searchText.trim() && (
         <List.Item
           title={searchText}
-          subtitle={`Log at ${getTimestamp()}`}
           actions={
             <ActionPanel>
               <Action title="Log Entry" onAction={handleSubmit} />

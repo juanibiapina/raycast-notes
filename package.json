@@ -28,6 +28,12 @@
       "title": "Track Time",
       "description": "Log a timestamped entry to today's daily note",
       "mode": "view"
+    },
+    {
+      "name": "log",
+      "title": "Log",
+      "description": "Add a simple entry to today's daily note",
+      "mode": "view"
     }
   ],
   "dependencies": {
